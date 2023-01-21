@@ -1,5 +1,6 @@
 package com.example.aop_sample;
 
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class UserAspect {
 
-    @Before("execution(* com.example.aop_sample.*.*.*(..))")
+    @Before("execution(* studying1())")
     public void moringMsg() {
         System.out.println("Good Morning");
     }
@@ -23,10 +24,11 @@ public class UserAspect {
         System.out.println("Welcome To StudyRoom");
     }
 
-//    @Around("execution(* com.example.aop_sample.controller.AOPController.*())")
-//    public void around() {
-//        System.out.println("i am enjoying");
-//    }
-
-
+    @Around("execution(* sum(..))")
+    public int around(ProceedingJoinPoint proceedingJoinPoint) {
+        System.out.println("sum of number is");
+        int x = (int)proceedingJoinPoint.getArgs()[0];
+        int y = (int)proceedingJoinPoint.getArgs()[1];
+        return x + 10 + y + 5;
+    }
 }
